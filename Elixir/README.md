@@ -2,6 +2,10 @@
 
 **TODO: Add description**
 
+## Execution
+
+To execute the program run the `build.sh` file.
+
 ## Testing
 
 To run tests execute `mix test`.

@@ -1,0 +1,102 @@
+defmodule LifeTest do
+  use ExUnit.Case
+  doctest Life
+
+  test "Canary" do
+    assert True
+  end
+
+  test "cell with 0 neighbours (dies)" do
+    refute Life.is_alive?(true, []) #Feedback: 0 instead of []
+  end
+
+  test "live cell with 1 neighbour (dies)" do
+    refute Life.is_alive?(true, [{1, 2}]) #Feedback: 1 instead of [...]
+  end
+
+  test "live cell with 2 neighbours (lives)" do
+    assert Life.is_alive?(true, [{1, 2}, {0, 0}])  #Feedback: 2 instead of [...]
+  end
+
+  test "live cell with 3 neighbours (lives)" do
+    assert Life.is_alive?(true, [{1, 2}, {0, 0}, {2, 1}])
+  end
+
+  test "live cell with 4 neighbours (dies)" do
+    refute Life.is_alive?(true, [{1, 2}, {0, 0}, {2, 1}, {2, 0}])
+  end
+
+  test "dead cell with 4 neighbours (dies)" do
+    refute Life.is_alive?(false, [{0, 1}, {1, 2}, {0, 0}, {2, 1}])
+  end
+
+  test "dead cell with 3 neighbours (lives)" do
+    assert Life.is_alive?(false, [{1, 2}, {0, 0}, {2, 1}])
+  end
+
+  test "dead cell with 2 neighbours (dies)" do
+    refute Life.is_alive?(false, [{0, 0}, {2, 1}])
+  end
+
+  test "dead cell with 1 neighbours (dies)" do
+    refute Life.is_alive?(false, [{0, 0}])
+  end
+
+#Feedback: let's remove these.
+#  test "run round with block initialization pattern" do
+#    cells = [{0, 0, true}, {0, 1, true}, {1, 0, true}, {1, 1, true}, {1, 2, false}, {2, 1, false}, {2, 2, false}]
+#    assert Life.run_round(cells) == MapSet.new([{0, 0}, {0, 1}, {1, 0}, {1, 1}])
+#  end
+#
+#  test "run round with horizontal oscillator initialization pattern" do
+#    cells = [{1, 0, true}, {1, 1, true}, {1, 2, true}, {0, 1, false}, {2, 1, false}, {2, 2, false}, {0, 0, false}]
+#    assert Life.run_round(cells) == MapSet.new([{0, 1}, {1, 1}, {2, 1}])
+#  end
+#
+#  test "run round with vertical oscillator initialization pattern" do
+#    cells = [{1, 0, false}, {1, 1, true}, {1, 2, false}, {0, 1, true}, {2, 1, true}, {2, 2, false}, {0, 0, false}]
+#    assert Life.run_round(cells) == MapSet.new([{1, 0}, {1, 1}, {1, 2}])
+#  end
+#
+#  test "run round with basic glider initialization pattern" do
+#    phase1 = [{0, 0, true}, {1, 1, true}, {1, 2, true}, {2, 0, true}, {2, 1, true}, {0, 1, false}, {2, 2, false}, {1, 0, false}, {0, 1, false}]
+#    phase2 = [{1, 2, true}, {2, 0, true}, {2, 1, true}, {0, 1, true}, {2, 2, true}, {1, 0, false}, {3, 1, false}, {1, 0, false}, {0, 1, false}]
+#    phase3 = [{1, 2, true}, {2, 2, true}, {2, 1, true}, {1, 0, true}, {3, 1, true}, {2, 0, false}, {3, 2, false}, {1, 0, false}, {0, 1, false}]
+#    phase4 = [{1, 2, true}, {2, 2, true}, {3, 1, true}, {2, 0, true}, {3, 2, true}, {1, 1, false}, {2, 3, false}, {1, 0, false}, {0, 1, false}]
+#    assert Life.run_round(phase1) == MapSet.new([{1, 2}, {2, 0}, {2, 1}, {0, 1}, {2, 2}])
+#    assert Life.run_round(phase2) == MapSet.new([{1, 2}, {2, 1}, {2, 2}, {1, 0}, {3, 1}])
+#    assert Life.run_round(phase3) == MapSet.new([{1, 2}, {2, 2}, {3, 1}, {2, 0}, {3, 2}])
+#    assert Life.run_round(phase4) == MapSet.new([{2, 2}, {3, 1}, {3, 2}, {1, 1}, {2, 3}])
+#  end  
+
+  #Feedback: let's work on one test at a time from the following:                                       
+
+#  test "signals in an empty universe" do
+#    signals = Life.generate_signals([])
+#  
+#    assert 0 == length(signals)
+#  end
+  
+#  test "signals in an universe with one live cell" do
+#    signals = Life.generate_signals([{2, 3}])
+#
+#    assert 8 == length(signals)
+#    assert [{1, 2}, {1, 3}, {1, 4}, {2, 2}, {2, 4}, {3, 2}, {3, 3}, {3, 4}]
+#      == signals
+#  end
+  
+#  test "signals in an universe with two live cells" do
+#    signals = Life.generate_signals([{2, 3}, {10, 12}])
+#
+#    assert 16 == length(signals)
+#    assert Enum.member?(signals, {1, 2})
+#    assert Enum.member?(signals, {10, 11})
+#  end
+  
+#  test "signals in an universe with two nearby cells" do
+#    signals = Life.generate_signals([{2, 3}, {2, 5}])
+#
+#    assert 16 == length(signals)
+#    assert 2 == length(Enum.filter(signals, fn(e) -> {2, 4} == e end))
+#  end
+end
